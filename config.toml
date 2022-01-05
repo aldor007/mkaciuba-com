@@ -1,0 +1,4 @@
+baseURL = "https://mkaciuba.com/"
+languageCode = "en-us"
+title = "Marcin Kaciuba tech blog"
+theme = "kiera"
