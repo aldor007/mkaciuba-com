@@ -30,17 +30,23 @@ That's how project  for rewriting homepage and creating homelab started
 
 My idea was to have the homelab enclosed in a fairly small package. At this point of time I didn’t want to have an “ikea rack” server. And as this will be in my living room it has to be quiet.
 Taking my requirements into account I’ve chosen
-ARM64 - 4x  Raspberry PI 4b 8GB RAM
-ARM64 - 2x RaspberryPi 4b 4GB RAM
-X86_64 - 2x AtomicPi 4GB RAM
-I planned to reuse boards that I’ve already have
-ARM - 2x Cubieboard 1GB RAM
-ARM - 1x Cubietruck 2GB RAM
+* ARM64 - 4x  Raspberry PI 4b 8GB RAM
+* ARM64 - 2x RaspberryPi 4b 4GB RAM
+* X86_64 - 2x AtomicPi 4GB RAM
+
+I planned to reuse boards that I’ve already have:
+
+* ARM - 2x Cubieboard 1GB RAM
+* ARM - 1x Cubietruck 2GB RAM
 As a case for everything I’ve used some old PC ATX case, so for power supply the best idea was to use PC power supply (instruction how to use PC power supply without motherboard can be found [here](https://www.overclockersclub.com/guides/atx_psu_startup/))
 
-![case inside](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQyNF8xMmY2NGU0OTc3LmpwZw/photo_pc-case-inside_big.jpg)
+| ![case inside](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQyNF8xMmY2NGU0OTc3LmpwZw/photo_pc-case-inside_big.jpg) |
+|:--:|
+| Inside of ATX case |
 
-![everything connected](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQyN18zOGU0ODQ4ZGY4LmpwZw/photo_servers-connected_big.jpg)
+| ![everything connected](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQyN18zOGU0ODQ4ZGY4LmpwZw/photo_servers-connected_big.jpg) |
+|:--:|
+| Running homelab |
 
 
 ## Network setup
@@ -51,7 +57,10 @@ For networking I've used one router with BGP capabilities (keep in mind you can 
 ## Cooling
 When running such a setup 24/7 keeping temperature on a stable level is a key. To be sure that none of my computing power will overheat I've added 2 PC 12V fans. Speed of rotation of the fans is controlled by python script deployed to one of the Raspberry PI.
 
-![cooling system](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQxN19lNDA2OGY2NzkyLmpwZw/photo_cpu-fans_big.jpg)
+| ![cooling system](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQxN19lNDA2OGY2NzkyLmpwZw/photo_cpu-fans_big.jpg) |
+|:--:|
+| 12 V Fans |
+
 
 Python script controlling fans speed:
 ```python
@@ -133,8 +142,8 @@ On this stage we have Kubernetes cluster with network setup and few nodes ready 
 
 ## What next?
 
-Monitoring - prometheus-operator, grafana, loki
-Apps deploy Argocd
-Secret management vault-operator
+* Monitoring - prometheus-operator, grafana, loki
+* Apps deploy Argocd
+* Secret management vault-operator
 
 Full configuration can be found [here](https://github.com/aldor007/homelab)
