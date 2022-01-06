@@ -2,9 +2,9 @@
 title = "Caching Pages With Login Form"
 date = 2018-09-09T11:59:58+01:00
 images = []
-tags = ["devops", "lua", "nginx]
+tags = ["devops", "lua", "nginx"]
 categories = ["projets"]
-draft = true
+draft = false
 type = "post"
 +++
 
@@ -56,15 +56,16 @@ And when we do not have a page in the Nginx
 
 At the beginning, we should define several variables in nginx so that we can not cave out answers in case of an error with CacheAPI
 
-<pre class="brush:php;">set $ no_cache 0;
-  set $ bypass_cache 0;
+```php
+set $no_cache 0;
+  set $bypass_cache 0;
 
-$ The cache_version variable in it will be saved by the cach version
-set $ cache_version "";
+# The cache_version variable in it will be saved by the cach version
+set $cache_version "";
 
 # Use of variables to change cacha and not caching the opdis
-proxy_cache_bypass $ bypass_cache;
-proxy_no_cache $ no_cache;
+proxy_cache_bypass $bypass_cache;
+proxy_no_cache $no_cache;
 
 # Our main secret for handling requests is too large to be included in the nginx configuration. More conveniently edit it in a separate file
 rewrite_by_lua_file /var/lib/nginx/lua/rewrite.lua;
@@ -73,12 +74,14 @@ rewrite_by_lua_file /var/lib/nginx/lua/rewrite.lua;
 proxy_cache dynamic;
 
 # Our cache key
-set $ cache_key "$ method! $ host! $ uri! $ is_args $ args! $ content_encoding! $ cache_version";
-proxy_cache_key $ cache_key;</pre>
+set $cache_key "$method!$host!$uri!$is_args$args!$content_encoding!$cache_version";
+proxy_cache_key $cache_key;
+```
 
 The script itself looks as follows
 
-<pre class="brush:python;">ngx.var.no_cache = '0'
+```lua
+ngx.var.no_cache = '0'
 local user_id = ngx.var.cookie_session_cookie
 if user_id == nil then
    return
@@ -136,6 +139,7 @@ end
 -- update cache key
 local cache_key = ngx.var.cache_key
 ngx.var.cache_key = cache_key .. '!' .. res.headers['x-cache-api-cache-param']</pre>
+```
 
 # Summary
 

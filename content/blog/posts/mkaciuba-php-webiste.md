@@ -46,7 +46,8 @@ I was testing my application with latest docker images of wordpress. Without cac
 
 ## No cache - wordpress 
 
-<pre class="brush:bash;">$ ab  -n 1000 -c 2 http://mkaciuba.com/
+```bash
+$ ab  -n 1000 -c 2 http://mkaciuba.com/
 Requests per second:    2.50 [#/sec] (mean)
 Time per request:       799.586 [ms] (mean)
 Time per request:       399.793 [ms] (mean, across all concurrent requests)
@@ -95,11 +96,11 @@ Percentage of the requests served within a certain time (ms)
   99%  11601
  100%  15536 (longest request)
 
-</pre>
+```
 
 ## Cache Wordpress
-
-<pre class="brush:bash;">$ ab  -n 1000 -c 10 http://mkaciuba.com/
+```bash
+$ ab  -n 1000 -c 10 http://mkaciuba.com/
 Requests per second:    34.64 [#/sec] (mean)
 Time per request:       288.700 [ms] (mean)
 Time per request:       28.870 [ms] (mean, across all concurrent requests)
@@ -123,11 +124,12 @@ Percentage of the requests served within a certain time (ms)
   99%    434
  100%    564 (longest request)
 
-</pre>
+```
 
 ## My application no  HTTP cache
 
-<pre class="brush:bash;">$ ab  -n 1000 -c 2 http://mkaciuba.com/
+```bash
+$ ab  -n 1000 -c 2 http://mkaciuba.com/
 Requests per second:    3.54 [#/sec] (mean)
 Time per request:       564.740 [ms] (mean)
 Time per request:       282.370 [ms] (mean, across all concurrent requests)
@@ -175,11 +177,12 @@ Percentage of the requests served within a certain time (ms)
   99%   5809
  100%  10314 (longest request)
 
-</pre>
+```
 
 ## My application cache
 
-<pre class="brush:bash;">$ ab  -n 1000 -c 10 http://mkaciuba.com/
+```bash
+$ ab  -n 1000 -c 10 http://mkaciuba.com/
 Requests per second:    36.94 [#/sec] (mean)
 Time per request:       270.718 [ms] (mean)
 Time per request:       27.072 [ms] (mean, across all concurrent requests)
@@ -202,3 +205,4 @@ Percentage of the requests served within a certain time (ms)
   98%    413
   99%   1215
  100%   1757 (longest request)
+ ```
