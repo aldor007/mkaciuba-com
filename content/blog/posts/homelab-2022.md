@@ -3,7 +3,7 @@ title = "Homelab - Kubernetes at home"
 date = 2022-01-06T15:42:25+01:00
 images = []
 tags = ["devops", "kubernets", "helm", "ansible"]
-categories = ["projects']
+categories = ["projects"]
 draft = false
 type = "posts"
 +++
