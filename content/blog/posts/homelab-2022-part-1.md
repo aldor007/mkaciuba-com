@@ -1,5 +1,5 @@
 +++
-title = "Homelab - Kubernetes at home"
+title = "Homelab - Kubernetes at home part 1"
 date = 2022-01-06T15:42:25+01:00
 images = []
 tags = ["devops", "kubernets", "helm", "ansible"]
@@ -38,6 +38,7 @@ I planned to reuse boards that I’ve already have:
 
 * ARM - 2x Cubieboard 1GB RAM
 * ARM - 1x Cubietruck 2GB RAM
+
 As a case for everything I’ve used some old PC ATX case, so for power supply the best idea was to use PC power supply (instruction how to use PC power supply without motherboard can be found [here](https://www.overclockersclub.com/guides/atx_psu_startup/))
 
 | ![case inside](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9JTUdfMjQyNF8xMmY2NGU0OTc3LmpwZw/photo_pc-case-inside_big.jpg) |
