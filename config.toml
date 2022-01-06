@@ -4,7 +4,7 @@ title = "Marcin Kaciuba tech blog"
 theme = "mkaciuba"
 canonifyurls = true
 
-paginate = 3
+# paginate = 3
 
 summaryLength = 30
 enableEmoji = true
@@ -23,14 +23,14 @@ pygmentsCodeFences = true
     #devto = "username"
 
 [params]
-    tagline = "A Hugo theme for creative and technical writing"
-    description = "Kiera: A Hugo theme for creative and technical writing."
+    tagline = "Marcin Kaciuba tech notes"
+    description = "My technology blog"
     #images = [""] #This is used for opengraph/twitter cards.
     customCSS = []  #Optional Customised CSS
-    #favicon = ""
+    favicon = "https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9sb2dvX2ljb25fZDRiMzcxNWZkYS5wbmc/photo_httpsmort-mkaciuba-comassetsbundlesaldorcoreimglogo-icon-png_icon.png"
     #utterancesRepo = "username/repository"
     #utterancesIssueTerm = "pathname"
-    #homepageLength = 10
+    homepageLength = 10
     #commentAutoload = true  #This mean reader don't need click, disqus comment autoload
     #mathjax = true #Enable display of mathematics using mathjax (LaTeX syntax)
     katex = true #Enable display of mathematics using katex (Faster LaTeX rendering)

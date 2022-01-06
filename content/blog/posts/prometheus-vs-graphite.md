@@ -1,11 +1,11 @@
 +++
 title = "Using Prometheus instead of Graphite"
 date = 2018-01-09T12:12:35+01:00
-images = []
+images = ["https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9tb25pdG9yaW5nX3Byb21ldGh1ZXNfcG5nXzhlMDY0ODhlZWEucG5n/photo_prometheus-monitoring_big.jpg"]
 tags = ["devops"]
 categories = ["random"]
 draft = false
-type = "post"
+type = "posts"
 +++
 
 Some time ago for monitoring of my system, I was using graphite.  But I had to reinstall my monitoring machine and there was an occasion to test something new.  So I tried Prometheus. In this post, I will compare what differences I have noticed between Prometheus and Graphite

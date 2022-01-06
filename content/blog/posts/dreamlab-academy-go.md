@@ -5,7 +5,7 @@ images = []
 tags = ["golang"]
 categories = ["projects"]
 draft = false
-type = "post"
+type = "posts"
 +++
 
 On April 19, 2018, along with a friend, I had the pleasure to lead workshops introducing the participants to GoLang.

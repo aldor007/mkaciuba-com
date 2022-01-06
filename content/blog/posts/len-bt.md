@@ -1,11 +1,11 @@
 +++
 title = "Len BT"
 date = 2015-12-06T12:04:23+01:00
-images = []
+images = ["https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9sZW5idF82Nzk5NGQxZTNiLnBuZw/photo_lenbt_big.jpg"]
 tags = ["c"]
 categories = ["projects"]
 draft = false
-type = "post"
+type = "posts"
 +++
 
 Controlled via bluetooth "tank"

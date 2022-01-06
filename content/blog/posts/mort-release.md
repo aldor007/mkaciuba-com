@@ -1,11 +1,12 @@
 +++
 title = "Mort Release"
 date = 2017-12-17T12:02:48+01:00
-images = []
+images = ["https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy9nb3BoZXJfODM3MTY0M2Y0Zi5wbmc/photo_mort_big.jpg"]
+description = "Mort image processing server written in go"
 tags = ["golang", "images", "photos"]
 categories = ["projects"]
 draft = false
-type = "post"
+type = "posts"
 +++
 
 

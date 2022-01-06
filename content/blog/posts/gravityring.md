@@ -5,7 +5,7 @@ images = []
 tags = ["python"]
 categories = ["projects"]
 draft = false
-type = "post"
+type = "posts"
 +++
 
 This is a cross-platform application dedicated to the simulation of n-bodies in a gravitational field. 

@@ -1,13 +1,5 @@
 {{ define "main" }}
 <section id="home">
-List blog
-
-
-{{ printf "%#v" site.RegularPages }}
-
-{{ range $p := site.RegularPages }}
-{{ $p.Type }}
-{{ end }}
 
   <ul>
     {{ $pages := where site.RegularPages "Type" "posts" }}

@@ -4,8 +4,9 @@ date = 2018-09-09T11:59:58+01:00
 images = []
 tags = ["devops", "lua", "nginx"]
 categories = ["projets"]
+description = "Caching page using custom cache key in nginx"
 draft = false
-type = "post"
+type = "posts"
 +++
 
 Usually, when websites are made that are to be available to a specific group of recipients (with a login and password), the proxying server does not allow it to be cached. Caching such a page could lead to users who should not have access to the content to have it

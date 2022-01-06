@@ -5,5 +5,5 @@ images = []
 tags = []
 categories = []
 draft = true
-type = "post"
+type = "posts"
 +++

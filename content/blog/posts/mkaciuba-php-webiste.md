@@ -5,7 +5,7 @@ images = []
 tags = ["devops", "www"]
 categories = ["projects"]
 draft = false
-type = "post"
+type = "posts"
 +++
 
 This project was the longest (except my master degree) I have ever done. The website is composed of few elements and I was trying to learn as much as I can while doing it.
