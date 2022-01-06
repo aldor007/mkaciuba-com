@@ -1,10 +1,40 @@
 
-Hi! My name is Marcin Kaciuba
 
-<a href="https://mkaciuba.pl?utm_source=mkaciubacom">
-photography(only in polish)
-<a>
+<!DOCTYPE html>
+<html lang="{{ .Language.Lang }}">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<a href="/blog">
-tech blog
-<a>
+
+{{ $styles := resources.Get "css/main.css" | postCSS }}
+
+{{ if .Site.IsServer }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}"/>
+{{ else }}
+  {{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}"/>
+{{ end }}
+</head>
+<body class="bg-gray-100 font-serif">
+    <main class="w-full max-w-screen-xl mx-auto py-24 bg-gray-100">
+        <div class="w-full mx-auto text-center	">
+            <h1 class="w-full text-5xl font-bold mt-12 mb-">Hi! My name is Marcin Kaciuba </h1>
+            <h1 class="w-full text-4xl font-bold mt-12 mb- text-slate-600	">My sites:</h1>
+            <div class="flex text-3xl  mt-16 flex-wrap mx-auto overflow-hidden">
+                <div class="mx-auto my-1 px-1 w-1/2">
+                    <a href="https://mkaciuba.pl?utm_source=mkaciubacom">
+                        <h2 class="hover:underline"> Photography</h2>
+                    <a>
+                </div>
+                <div class="mx-auto my-1 px-1 w-1/2">
+                    <a href="/blog">
+                        <h2 class="hover:underline">Tech Blog</h2>
+                    <a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
