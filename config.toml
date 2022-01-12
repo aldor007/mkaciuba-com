@@ -42,10 +42,16 @@ pygmentsCodeFences = true
     identifier = "tags"
     name = "Tags"
     url = "/tags"
-    weight = 1
+    weight = 3
 
 [[menu.main]]
     identifier = "categories"
     name = "Categories"
     url = "/categories"
+    weight = 2
+
+[[menu.main]]
+    identifier = "photography"
+    name = "Photography"
+    url = "https://mkaciuba.pl/?utm_source=mkaciuba-com"
     weight = 1
