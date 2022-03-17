@@ -18,9 +18,15 @@
     </footer>
 </div>
 <script src="{{ "js/scripts.js" | relURL }}"></script>
-{{ if .Site.GoogleAnalytics }}
-  {{ template "_internal/google_analytics.html" . }}
-{{ end }}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NYSCZCFS70"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NYSCZCFS70');
+</script>
 {{ partial "user_footer" . }}
 </body>
 

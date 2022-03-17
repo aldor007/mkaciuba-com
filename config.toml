@@ -9,6 +9,7 @@ canonifyurls = true
 summaryLength = 30
 enableEmoji = true
 pygmentsCodeFences = true
+disqusShortname = "mkaciuba"
 
 [author]
     name = "mkaciuba.com"

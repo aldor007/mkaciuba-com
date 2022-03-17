@@ -1,6 +1,10 @@
 {{ define "main" }}
 
 {{ partial "article" . }}
+{{ if .Site.disqusShortname }}
+  {{ template "_internal/disqus.html" . }}
+
+{{ end }}
 {{ partial "single_footer" . }}
 
 {{ end }}
