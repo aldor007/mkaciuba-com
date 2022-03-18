@@ -1,6 +1,6 @@
 +++
 title = "Homelab 2022 Part 2"
-date = 2022-03-18T18:01:01+01:00
+date = 2022-03-18T17:01:01+01:00
 images = []
 tags = ["devops", "kubernets", "helm", "ansible"]
 categories = ["projects"]
@@ -8,7 +8,6 @@ draft = false
 type = "posts"
 +++
 
-- [Introduction](#introduction)
 - [Storage](#storage)
 - [Monitoring and logs](#monitoring-and-logs)
   - [Metrics](#metrics)
@@ -25,7 +24,6 @@ type = "posts"
 - [Access from the Internet](#access-from-the-internet)
 - [What next?](#what-next)
 
-# Introduction
 
 In previous [post](/blog/posts/homelab-2022-part-1) I have described hardware and network setup. Today I will talk about software which I have installed on my cluster
 

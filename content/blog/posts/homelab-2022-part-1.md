@@ -9,8 +9,6 @@ type = "posts"
 +++
 
 
-# Introduction
-
 In this post I would like to describe my process of creating Kubernetes servers at home. By reading this post you will learn
 * What hardware you can use
 * How to setup network
