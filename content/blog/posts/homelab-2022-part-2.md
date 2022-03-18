@@ -32,7 +32,7 @@ Repository with configuration described in this post can be found [here](https:/
 
 # Storage
 
-In my case for storage I'm using Synology NAS server, I wasn't thinking about adding more disk space to nodes
+In my case for storage I'm using Synology NAS server. It is enough for me
 
 ```yaml
 # helmfile
@@ -427,7 +427,7 @@ secrets:
 
 There is improvement in this factor from my previous post. Now instead of using OpenVPN I'm using [cloudflare tunnel](https://www.cloudflare.com/products/tunnel/).
 
-First off all you need to generate cloudflare credentials using [cloudflared](https://github.com/cloudflare/cloudflared) or [terraform](https://github.com/khuedoan/homelab/tree/master/external)
+First off all you need to generate Cloudflare credentials using [cloudflared](https://github.com/cloudflare/cloudflared) or [terraform](https://github.com/khuedoan/homelab/tree/master/external)
 Next step is to deploy cloudflared into cluster - [chart](https://github.com/khuedoan/charts/tree/master/charts/cloudflared)
 
 Example:
