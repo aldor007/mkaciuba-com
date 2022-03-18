@@ -8,6 +8,10 @@ draft = false
 type = "posts"
 +++
 
+In previous [post](/blog/posts/homelab-2022-part-1) I have described hardware and network setup. Today I will talk about software which I have installed on my cluster
+
+Repository with configuration described in this post can be found [here](https://github.com/aldor007/homelab)
+
 - [Storage](#storage)
 - [Monitoring and logs](#monitoring-and-logs)
   - [Metrics](#metrics)
@@ -21,18 +25,15 @@ type = "posts"
   - [Installation of bank-vault - operator](#installation-of-bank-vault---operator)
   - [Installation of vault](#installation-of-vault)
   - [Accessing secrets from vault](#accessing-secrets-from-vault)
-- [Access from the Internet](#access-from-the-internet)
+- [Access from the Internet to apps](#access-from-the-internet-to-apps)
 - [What next?](#what-next)
 
-
-In previous [post](/blog/posts/homelab-2022-part-1) I have described hardware and network setup. Today I will talk about software which I have installed on my cluster
-
-Repository with configuration described in this post can be found [here](https://github.com/aldor007/homelab)
 
 
 # Storage
 
-In my case for storage I'm using Synology NAS server. It is enough for me
+In my case for storage I'm using Synology DS920+ NAS server. It is enough for me. There is [a project](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner) which can provision PVC storage on top of NAS.
+My configuration below
 
 ```yaml
 # helmfile
@@ -66,10 +67,12 @@ storageClass:
 
 # Monitoring and logs
 
+Without proper monitoring you can know if apps are working correctly
+
 ## Metrics
 
 For monitoring I've decided to use [prometheus-operator](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
-It is well known monitoring solution for a Kubernetes cluster so I don't think that I need to add more. My whole configuration can be found [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml)
+It is well known monitoring solution for a Kubernetes cluster so I don't think that I need to describe it more here. My whole configuration can be found [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml)
 
 | ![example grafana dashboard](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2dyYWZhbmFfMTEzMDJiNzI3NC5QTkc/photo_grafana_big.jpg) |
 |:--:|
@@ -83,14 +86,6 @@ I always have one issue with prometheus operator - I always need to add label
       serviceMonitorSelector:
         matchLabels:
           monitoring: prometheus
-      ## Example which selects ServiceMonitors with label "prometheus" set to "somelabel"
-      # serviceMonitorSelector:
-      #   matchLabels:
-      #     prometheus: somelabel
-
-      ## Namespaces to be selected for ServiceMonitor discovery.
-      ## See https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#namespaceselector for usage
-      ##
       serviceMonitorNamespaceSelector:
         matchLabels:
           monitoring: prometheus
@@ -123,7 +118,7 @@ And used it in [helmfile](https://github.com/roboll/helmfile) `presync` hook
 ```
 ## Logs
 
-For centralized logging solution I'm using [Loki](https://grafana.com/oss/loki/). It works very well with grafana stack. As I don't have big traffic is good enough for me. Configuration is [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml#L2267). There is one additional feature "added" by me - extra container for proxing gRPC requests as [greebo](https://github.com/aldor007/greebo) can use Loki as backend.
+For centralized logging solution I'm using [Loki](https://grafana.com/oss/loki/). It works very well with Grafana stack. As I don't have big traffic is good enough for me. Configuration is [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml#L2267). There is one additional feature "added" by me - extra container for proxing gRPC requests as [greebo](https://github.com/aldor007/greebo) can use Loki as backend.
 
 
 | ![example loki logs](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2xva2lfOWZjNDgyMDcwMS5QTkc/photo_loki_big.jpg)
@@ -132,12 +127,9 @@ For centralized logging solution I'm using [Loki](https://grafana.com/oss/loki/)
 
 # CD - argocd
 
-In cloud native environment ease of deployment is very important factor. In my commercial experience I have used tools such like Jenkins ans Spinnaker but IMO the greatest one
+In cloud native environment ease of deployment is very important factor. In my commercial experience I have used tools such like Jenkins and Spinnaker but IMO the greatest one
 that can be used for deploying to k8s is [argocd](https://argo-cd.readthedocs.io/en/stable/)
 
-| ![argocd dashboard for mkaciuba.pl](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2FyZ29jZF9lOWQyMzJjNmVjLlBORw/photo_argocd_big.jpg)
-|:--:|
-| *Argocd dashboard for mkaciuba.pl app* |
 
 ## How to setup argocd?
 
@@ -160,6 +152,7 @@ Install argocd server from official helm chart
 ## Configure access to repository
 
 ```yaml
+# values/argocd.yaml.gotmpl
 # https://github.com/aldor007/homelab/blob/c496358ca5ea22c8662ae971bf2f903096d19161/helmfile/values/argocd.yaml.gotmpl#L523
     config:
       # Argo CD's externally facing base URL (optional). Required when configuring SSO
@@ -208,12 +201,16 @@ spec:
 
 And that it, you application is ready to be deployed by argo
 
+| ![argocd dashboard for mkaciuba.pl](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2FyZ29jZF9lOWQyMzJjNmVjLlBORw/photo_argocd_big.jpg)
+|:--:|
+| *Argocd dashboard for mkaciuba.pl app* |
+
 # Ingress
 
 At beginning of my homelab as ingress I have used [traefik](https://github.com/traefik/traefik) (it is installed by default by k3s) but after some time I came to the conclusion that it is not enough for my
-use case. I had a issue with caching of graphql response from strapi. I couldn't modify response headers from strapi (I'm using v3, in v4 is seems that it would be possible)
-so I need to do it on proxy/ingress level. I've tried to find a solution how to do it in traefik but without luck. After this I've came up with another solution - use [kong](https://github.com/kong/kong). In kong it
-is very easy to add lua scrips on given ingress. Below a few lines of yaml that solved the issue
+use case. I had a issue with caching of graphql response from strapi. I couldn't modify response headers int strapi
+so I need to do it on proxy/ingress level. I've tried to find a solution how to do it in traefik but without luck. I've came up with another solution - use [kong](https://github.com/kong/kong). In kong it
+is very easy to add lua script on given ingress. Below a few lines of yaml that solved the issue
 
 ```yaml
 apiVersion: configuration.konghq.com/v1
@@ -233,8 +230,7 @@ plugin: post-function
 
 Kong agility is something that is required by me (writing plugins in lua is fast)
 
-
-Recently I have enabled Kong correlation plugin (adding request id header) something not complicated but very powerful
+Next feature recently I have enabled Kong correlation plugin (adding request id header) something not complicated but very powerful
 ```yaml
 apiVersion: configuration.konghq.com/v1
 kind: KongClusterPlugin
@@ -312,45 +308,7 @@ spec:
         - hosts:
             - vault.k8s.m39
           secretName: vault-tls
-  # Use local disk to store Vault file data, see config section.
-  volumes:
-    - name: vault-file
-      persistentVolumeClaim:
-        claimName: vault-file
-
-  volumeMounts:
-    - name: vault-file
-      mountPath: /vault/file
-
-  # Support for distributing the generated CA certificate Secret to other namespaces.
-  # Define a list of namespaces or use ["*"] for all namespaces.
-  caNamespaces:
-    - "*"
-
-  # Describe where you would like to store the Vault unseal keys and root token.
-  unsealConfig:
-    options:
-      # The preFlightChecks flag enables unseal and root token storage tests
-      # This is true by default
-      preFlightChecks: true
-    kubernetes:
-      secretNamespace: vault
-
-  # A YAML representation of a final vault config file.
-  # See https://www.vaultproject.io/docs/colfiguration/ for more information.
-  config:
-    storage:
-      file:
-        path: /vault/file
-    listener:
-      tcp:
-        address: 0.0.0.0:8200
-        tls_cert_file: /vault/tls/server.crt
-        tls_key_file: /vault/tls/server.key
-    ui: true
-
-  # See: https://banzaicloud.com/docs/bank-vaults/cli-tool/#example-external-vault-configuration
-  # The repository also contains a lot examples in the deploy/ and operator/deploy directories.
+[...]
   externalConfig:
     policies:
       - name: mort
@@ -396,7 +354,7 @@ spec:
           version: 2
 ```
 
-Everything to configure vault is done by Kubernetes CR. The only manual process is adding secrets by my
+Everything to configure vault is done by Kubernetes CR. The only manual process is adding secrets in vault ui
 
 | ![vault ](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL3ZhdWx0X2FhOTkzZTk3NzcuUE5H/photo_vault_big.jpg) |
 |:--:|
@@ -423,7 +381,7 @@ secrets:
     MORT_ASSETS_SECRET_ACCESS_KEY: "vault:mort/data/buckets#assets.secretAccessKey"
 ```
 
-# Access from the Internet
+# Access from the Internet to apps
 
 There is improvement in this factor from my previous post. Now instead of using OpenVPN I'm using [cloudflare tunnel](https://www.cloudflare.com/products/tunnel/).
 
