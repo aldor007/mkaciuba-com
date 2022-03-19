@@ -208,7 +208,7 @@ And that it, you application is ready to be deployed by argo
 # Ingress
 
 At beginning of my homelab as ingress I have used [traefik](https://github.com/traefik/traefik) (it is installed by default by k3s) but after some time I came to the conclusion that it is not enough for my
-use case. I had a issue with caching of graphql response from strapi. I couldn't modify response headers int strapi
+use case. I had a issue with caching of graphql response from strapi. I couldn't modify response headers in strapi
 so I need to do it on proxy/ingress level. I've tried to find a solution how to do it in traefik but without luck. I've came up with another solution - use [kong](https://github.com/kong/kong). In kong it
 is very easy to add lua script on given ingress. Below a few lines of yaml that solved the issue
 
@@ -371,7 +371,7 @@ To access secrets defined in vault you need to add annotations for pod like belo
   vault.security.banzaicloud.io/vault-role: "mort"
 ```
 
-Retrieval process looks like below. You can have env variable with `vault` prefix after which there is a path to secret
+Retrieval process looks like below. You can have env variables with `vault` prefix after which there is a path to secret
 
 ```
 secrets:
