@@ -8,9 +8,9 @@ draft = false
 type = "posts"
 +++
 
-In previous [post](/blog/posts/homelab-2022-part-1) I have described hardware and network setup. Today I will talk about software which I have installed on my cluster
+In previous [post](/blog/posts/homelab-2022-part-1) I have described hardware and network setup. Today I will talk about software that I have installed on my cluster
 
-Repository with configuration described in this post can be found [here](https://github.com/aldor007/homelab)
+A repository with the configuration described in this post can be found [here](https://github.com/aldor007/homelab)
 
 - [Storage](#storage)
 - [Monitoring and logs](#monitoring-and-logs)
@@ -67,18 +67,18 @@ storageClass:
 
 # Monitoring and logs
 
-Without proper monitoring you can know if apps are working correctly
+Without proper monitoring, you can't know if apps are working correctly
 
 ## Metrics
 
 For monitoring I've decided to use [prometheus-operator](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
-It is well known monitoring solution for a Kubernetes cluster so I don't think that I need to describe it more here. My whole configuration can be found [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml)
+It is a well-known monitoring solution for a Kubernetes cluster so I don't think that I need to describe it more here. My whole configuration can be found [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml)
 
 | ![example grafana dashboard](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2dyYWZhbmFfMTEzMDJiNzI3NC5QTkc/photo_grafana_big.jpg) |
 |:--:|
 | *Grafana dashboard* |
 
-I always have one issue with prometheus operator - I always need to add label
+I always have one issue with prometheus operator - I always need to add a label
 
 ```yaml
 # https://github.com/aldor007/homelab/blob/c496358ca5ea22c8662ae971bf2f903096d19161/helmfile/values/prometheus-operator.yaml#L1794
@@ -93,7 +93,7 @@ I always have one issue with prometheus operator - I always need to add label
 
 Each namespace in which there is a `ServiceMonitor` has to have `monitoring: prometheus` label
 
-To make my life easier I've written script which is adding this label
+To make my life easier I've written a script which is adding this label
 
 ``` bash
 # https://github.com/aldor007/homelab/blob/master/helmfile/scripts/patch-ns-monitoring.sh
@@ -118,7 +118,7 @@ And used it in [helmfile](https://github.com/roboll/helmfile) `presync` hook
 ```
 ## Logs
 
-For centralized logging solution I'm using [Loki](https://grafana.com/oss/loki/). It works very well with Grafana stack. As I don't have big traffic is good enough for me. Configuration is [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml#L2267). There is one additional feature "added" by me - extra container for proxing gRPC requests as [greebo](https://github.com/aldor007/greebo) can use Loki as backend.
+For centralized logging solution I'm using [Loki](https://grafana.com/oss/loki/). It works very well with Grafana stack. As I don't have big traffic it is good enough for me. Configuration is [here](https://github.com/aldor007/homelab/blob/master/helmfile/values/prometheus-operator.yaml#L2267). There is one additional feature "added" by me - extra container for proxying gRPC requests as [greebo](https://github.com/aldor007/greebo) can use Loki as backend.
 
 
 | ![example loki logs](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2xva2lfOWZjNDgyMDcwMS5QTkc/photo_loki_big.jpg)
@@ -127,7 +127,7 @@ For centralized logging solution I'm using [Loki](https://grafana.com/oss/loki/)
 
 # CD - argocd
 
-In cloud native environment ease of deployment is very important factor. In my commercial experience I have used tools such like Jenkins and Spinnaker but IMO the greatest one
+In a cloud native environment ease of deployment is a very important factor. In my commercial experience I have used tools such as Jenkins and Spinnaker but IMO the greatest one
 that can be used for deploying to k8s is [argocd](https://argo-cd.readthedocs.io/en/stable/)
 
 
@@ -149,7 +149,7 @@ Install argocd server from official helm chart
 
 ```
 
-## Configure access to repository
+## Configure access to the repository
 
 ```yaml
 # values/argocd.yaml.gotmpl
@@ -199,7 +199,7 @@ spec:
         maxDuration: 3m # the maximum amount of time allowed for the backoff strategy
 ```
 
-And that it, you application is ready to be deployed by argo
+And that it, your application is ready to be deployed by argo
 
 | ![argocd dashboard for mkaciuba.pl](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL2FyZ29jZF9lOWQyMzJjNmVjLlBORw/photo_argocd_big.jpg)
 |:--:|
@@ -207,10 +207,10 @@ And that it, you application is ready to be deployed by argo
 
 # Ingress
 
-At beginning of my homelab as ingress I have used [traefik](https://github.com/traefik/traefik) (it is installed by default by k3s) but after some time I came to the conclusion that it is not enough for my
-use case. I had a issue with caching of graphql response from strapi. I couldn't modify response headers in strapi
-so I need to do it on proxy/ingress level. I've tried to find a solution how to do it in traefik but without luck. I've came up with another solution - use [kong](https://github.com/kong/kong). In kong it
-is very easy to add lua script on given ingress. Below a few lines of yaml that solved the issue
+At beginning of my homelab as ingress, I have used [traefik](https://github.com/traefik/traefik) (it is installed by default by k3s) but after some time I concluded that it is not enough for my
+use case. I had an issue with caching of graphql response from strapi. I couldn't modify response headers in strapi,
+so I need to do it on proxy/ingress level. I've tried to find a solution how to do it in traefik but without luck. I've come up with another solution - use [kong](https://github.com/kong/kong). In kong it
+is very easy to add lua script to given ingress. Below are a few lines of yaml that solved the issue
 
 ```yaml
 apiVersion: configuration.konghq.com/v1
@@ -230,7 +230,7 @@ plugin: post-function
 
 Kong agility is something that is required by me (writing plugins in lua is fast)
 
-Next feature recently I have enabled Kong correlation plugin (adding request id header) something not complicated but very powerful
+Next feature recently I have enabled is Kong correlation plugin (adding request id header), something not complicated but very powerful
 ```yaml
 apiVersion: configuration.konghq.com/v1
 kind: KongClusterPlugin
@@ -252,8 +252,8 @@ Distributed tracing here I come! :)
 
 # Secrets management - vault
 
-Most of my projects are open source but still I need to use some kind of tool to store my credentials for S3 etc
-I do not store them in git, for secrets store I'm using [Hashicorp vault](https://www.vaultproject.io/) to be precise Banzai version of it
+Most of my projects are open source, but still I need to use some kind of tool to store my credentials for S3, etc
+I do not store them in git, for secrets store I'm using [Hashicorp vault](https://www.vaultproject.io/), to be precise Banzai version of it
 [bank vault](https://github.com/banzaicloud/bank-vaults)
 
 ##  Installation of bank-vault - operator
@@ -272,7 +272,7 @@ I do not store them in git, for secrets store I'm using [Hashicorp vault](https:
     version: 1.11.2
 ```
 
-## Installation of vault
+## Installation of a vault
 
 ```yaml
 # https://github.com/aldor007/homelab/blob/master/helmfile/charts/vault/templates/vault.yaml
@@ -354,15 +354,15 @@ spec:
           version: 2
 ```
 
-Everything to configure vault is done by Kubernetes CR. The only manual process is adding secrets in vault ui
+Everything to configure the vault is done by Kubernetes CR. The only manual process is adding secrets in vault ui
 
 | ![vault ](https://mort.mkaciuba.com/images/transform/ZmlsZXMvc291cmNlcy8yMDIyL3ZhdWx0X2FhOTkzZTk3NzcuUE5H/photo_vault_big.jpg) |
 |:--:|
 | *vault secrets* |
 
-## Accessing secrets from vault
+## Accessing secrets from the vault
 
-To access secrets defined in vault you need to add annotations for pod like below
+To access secrets defined in the vault you need to add annotations for pod like below
 
 ```yaml
   vault.security.banzaicloud.io/vault-addr: https://vault.vault.svc.cluster.local:8200
@@ -371,7 +371,7 @@ To access secrets defined in vault you need to add annotations for pod like belo
   vault.security.banzaicloud.io/vault-role: "mort"
 ```
 
-Retrieval process looks like below. You can have env variables with `vault` prefix after which there is a path to secret
+The retrieval process looks like below. You can have env variables with `vault` prefix after which there is a path to a secret
 
 ```
 secrets:
@@ -383,10 +383,10 @@ secrets:
 
 # Access from the Internet to apps
 
-There is improvement in this factor from my previous post. Now instead of using OpenVPN I'm using [cloudflare tunnel](https://www.cloudflare.com/products/tunnel/).
+There is improvement in this factor from my previous post. Now instead of using OpenVPN, I'm using [cloudflare tunnel](https://www.cloudflare.com/products/tunnel/).
 
-First off all you need to generate Cloudflare credentials using [cloudflared](https://github.com/cloudflare/cloudflared) or [terraform](https://github.com/khuedoan/homelab/tree/master/external)
-Next step is to deploy cloudflared into cluster - [chart](https://github.com/khuedoan/charts/tree/master/charts/cloudflared)
+First of all you need to generate Cloudflare credentials using [cloudflared](https://github.com/cloudflare/cloudflared) or [terraform](https://github.com/khuedoan/homelab/tree/master/external)
+Next step is to deploy cloudflared into the cluster - [chart](https://github.com/khuedoan/charts/tree/master/charts/cloudflared)
 
 Example:
 
@@ -426,5 +426,5 @@ podMonitor:
 
 # What next?
 
-* backup of vault
+* backup of a vault
 * homepage for homelab - for example https://github.com/bastienwirtz/homer
