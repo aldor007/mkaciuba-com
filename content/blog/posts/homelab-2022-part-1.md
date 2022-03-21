@@ -146,3 +146,5 @@ On this stage we have Kubernetes cluster with network setup and few nodes ready 
 * Secret management vault-operator
 
 Full configuration can be found [here](https://github.com/aldor007/homelab)
+
+[Part 2](/blog/posts/homelab-2022-part-2/)
