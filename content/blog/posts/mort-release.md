@@ -9,8 +9,6 @@ draft = false
 type = "posts"
 +++
 
-# hola ola DUDA
-
 Mort is image processing service that can on the fly create image transformation (resize, crop, grayscale etc). It can serve as a storage server as well.
 
 The main advantage of it is that it provides full control of what operation is applied to given image and it can store it in any storage.
